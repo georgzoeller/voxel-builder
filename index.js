@@ -46,6 +46,26 @@ module.exports = function() {
   }
 
   exports.viewInstructions = function() {
+    console.log("HELLO WORLDDDDDD");
+    var data = getVoxels();
+    console.log(data.voxels.shape);
+    var shape = data.voxels.shape;
+    
+    addVoxel(25,25,25);
+    addVoxel(25,25,75);
+    updateHash();
+    interact();
+
+    for(var i = 0; i < shape[0]; i++) {
+      for(var j = 0; j < shape[1]; j++) {
+        for(var k = 0; k < shape[2]; k++) {
+          if (data.voxels.get(i,j,k) == 1) {
+            console.log(i + " " + j + " " + k);
+          }
+        }
+      }
+    }
+
     $('#welcome').modal()
   }
 
@@ -433,11 +453,15 @@ module.exports = function() {
       })
     })
 
-    $('#shareButton').click(function(e) {
-      e.preventDefault()
-      exports.share()
-      return false
-    })
+    // $('#shareButton').click(function(e) {
+    //   e.preventDefault()
+    //   exports.share()
+    //   return false
+    // })
+
+    $('#snapButton').click(function(e) {
+      
+    });
 
     $('.colorPickButton').click(pickColor)
     $('.colorPickButton').on("contextmenu", changeColor)
@@ -757,6 +781,7 @@ module.exports = function() {
           scene.remove( intersect.object )
         }
       } else {
+        // console.log(brush.position.x + " " + brush.position.y + " " + brush.position.z);
         if (brush.position.y != 2000) addVoxel(brush.position.x, brush.position.y, brush.position.z, color)
       }
     }

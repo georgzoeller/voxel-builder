@@ -12,19 +12,20 @@
   </head>
   <body>
     <div id="instructions">
-      <h3 class="demo-panel-title"><a href="/">Voxel Critter Creator</a></h3>
+      <h3 class="demo-panel-title"><a href="/">3D Shape Manipulation Editor</a></h3>
       
       <select class="actionsMenu" value="Actions" tabindex="1">
         <option value="noop" selected="selected">Actions</option>
         <option value="viewInstructions">View Instructions</option>
-        <option value="loadExample">Load Example Critter</option>
-        <!-- <option value="browseTwitter">Recently Made Critters</option> -->
-        <option value="browseRecent">Recently Made Critters</option>
-        <option value="share">Publish + Share Critter</option>
-        <option value="export">Export PNG</option>
-        <option value="orthogamiExport">Export Orthogami</option>
-        <option value="paperstackExport">Export Paperstack</option>
+<!--         <option value="loadExample">Load Example Critter</option>
+ -->        <!-- <option value="browseTwitter">Recently Made Critters</option> -->
+<!--         <option value="browseRecent">Recently Made Critters</option>-->        
+        <!-- <option value="share">Publish + Share Critter</option> -->
+        <!-- <option value="export">Export PNG</option> -->
+        <!-- <option value="orthogamiExport">Export Orthogami</option> -->
+        <!-- <option value="paperstackExport">Export Paperstack</option> -->
         <option value="reset">Reset</option>
+        <option value="download">Download</option>
         <option value="about">About</option>
       </select>
 
@@ -48,7 +49,7 @@
               <input type="radio" name="share-toggles2" id="share-toggle3" value="toggle2">
             </div>
           </li>
-          <li>
+          <!-- <li>
             <label class="share-label" for="share-toggle4">Animation</label>
             <div data-action="toggleAnimation" class="toggle">
               <label class="toggle-radio" for="share-toggle6">ON</label>
@@ -56,11 +57,11 @@
               <label class="toggle-radio" for="share-toggle5">OFF</label>
               <input type="radio" name="share-toggles3" id="share-toggle5" value="toggle2" checked="checked">
             </div>
-          </li>
+          </li> -->
         </ul>
       </div> <!-- /share -->
       
-      <div class="row color-container">
+      <!-- <div class="row color-container">
         <div class="span3">
             <div class="btn-group color-picker">
               <a class="btn btn-primary colorPickButton active" href="#"><i data-color="0" class="color"></i></a>
@@ -71,12 +72,18 @@
               <a class="btn btn-primary colorAddButton" data-color="#000000" href="#"><i data-color="-1" class="colorAdd">++</i></a>
             </div>
         </div>
-      </div>
-      <div class="share">
+      </div> -->
+      <!-- <div class="share">
         <div class="tile">
           <img class="tile-image big-illustration" alt="" src="img/brain-share.png" />
           <p>Finished? Upload so others will be able to download and view it.</p>
           <a id="shareButton" class="btn btn-primary btn-large btn-block">Upload critter</a>
+        </div>
+      </div> -->
+      <div class="share">
+        <div class="tile">
+          <p>"Snap" your model to immediately generate a realistic representation of your object!</p>
+          <a id="snapButton" class="btn btn-primary btn-large btn-block">Snap</a>
         </div>
       </div>
       
