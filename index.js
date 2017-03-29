@@ -16,7 +16,7 @@ module.exports = function() {
   var mouse2D, mouse3D, raycaster, objectHovered
   var isShiftDown = false, isCtrlDown = false, isMouseDown = false, isAltDown = false
   var onMouseDownPosition = new THREE.Vector2(), onMouseDownPhi = 60, onMouseDownTheta = 45
-  var radius = 1600, theta = 90, phi = 60
+  var radius = 1600, theta = 270, phi = 60
   var target = new THREE.Vector3( 0, 200, 0 )
   var color = 0
   var CubeMaterial = THREE.MeshBasicMaterial
@@ -206,6 +206,15 @@ module.exports = function() {
     window.open(exportImage(800, 600).src, 'voxel-painter-window')
   }
 
+
+  exports.resetCamera = function() {
+    theta = 270;
+    camera.position.x = radius * Math.sin( theta * Math.PI / 360 ) * Math.cos( phi * Math.PI / 360 )
+    camera.position.y = radius * Math.sin( phi * Math.PI / 360 )
+    camera.position.z = radius * Math.cos( theta * Math.PI / 360 ) * Math.cos( phi * Math.PI / 360 )
+    camera.updateMatrix()
+  }
+
   exports.reset = function() {
     window.location.replace('#/')
     scene.children
@@ -368,8 +377,10 @@ module.exports = function() {
   function zoom(delta) {
     var origin = {x: 0, y: 0, z: 0}
     var distance = camera.position.distanceTo(origin)
-    var tooFar = distance  > 3000
-    var tooClose = distance < 300
+    //var tooFar = distance  > 3000
+    //var tooClose = distance < 300
+    var tooFar = distance > 5000
+    var tooClose = distance < 1500
     if (delta > 0 && tooFar) return
     if (delta < 0 && tooClose) return
     radius = distance // for mouse drag calculations to be correct
@@ -460,7 +471,37 @@ module.exports = function() {
     // })
 
     $('#snapButton').click(function(e) {
-      
+      // first send to script and execute export function
+      var voxelDict = getVoxels();
+      var voxels = voxelDict.voxels;
+      console.log(voxels);
+      // serialize voxels as a JSON string
+      var dataArr = [];
+      for(var i = 0; i < voxels.data.length; i++) {
+        dataArr.push(voxels.data[i]);
+      }
+      voxels.data = dataArr;
+      var voxelsJSON = JSON.stringify(voxels);
+      console.log(voxelsJSON);
+
+      $.ajax({
+        type: "POST",
+        url: "http://localhost:8000/process", 
+        data: voxelsJSON, 
+        contentType: "application/json",
+        dataType: "json",
+        success: function(data) {
+
+        }
+      });
+
+      //$.get("http://localhost:8000", function(data) {
+        //console.log(data);
+      //});
+
+      //var testvoxels = JSON.parse(voxelsJSON);
+      //var testNdArray = ndarray(testvoxels.data, testvoxels.shape, testvoxels.stride, testvoxels.offset);
+      //console.log(testNdArray);
     });
 
     $('.colorPickButton').click(pickColor)
@@ -559,7 +600,8 @@ module.exports = function() {
 
     // Grid
 
-    var size = 500, step = 50
+    //var size = 500, step = 50
+    var size = 1000, step = 50
 
     var geometry = new THREE.Geometry()
 
