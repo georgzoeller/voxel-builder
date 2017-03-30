@@ -491,7 +491,32 @@ module.exports = function() {
         contentType: "application/json",
         dataType: "json",
         success: function(data) {
+          //var voxels_out = JSON.parse(data);
+          var voxels_out = ndarray(data.data, data.shape, data.stride, data.offset);
+          console.log(voxels_out.shape);
 
+          // reset the grid
+          scene.children
+            .filter(function(el) { return el.isVoxel })
+            .map(function(mesh) { scene.remove(mesh) });
+          // fill in voxels
+          for(var i = 0; i < voxels_out.shape[0]; i++) {
+            var disti = i - Math.floor(voxels_out.shape[0]/2);
+            for(var j = 0; j < voxels_out.shape[1]; j++) {
+              var distj = j - Math.floor(voxels_out.shape[1]/2);
+              for(var k = 0; k < voxels_out.shape[2]; k++) {
+                var distk = k - Math.floor(voxels_out.shape[2]/2);
+                if (voxels_out.get(i,j,k) == 1) {
+                  var posx = disti * 50 + 25; 
+                  var posy = distj * 50 + 25;
+                  var posz = distk * 50 + 25;
+                  addVoxel(posx, posy, posz);
+                }
+              }
+            }
+          } 
+          updateHash();
+          interact();
         }
       });
 
