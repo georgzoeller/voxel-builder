@@ -216,10 +216,13 @@ module.exports = function() {
   }
 
   exports.reset = function() {
-    window.location.replace('#/')
     scene.children
       .filter(function(el) { return el.isVoxel })
-      .map(function(mesh) { scene.remove(mesh) })
+      .map(function(mesh) { scene.remove(mesh); scene.remove(mesh.wireMesh) });
+    //window.location.replace('#/')
+    //scene.children
+      //.filter(function(el) { return el.isVoxel })
+      //.map(function(mesh) { scene.remove(mesh) })
   }
 
   exports.setColor = function(idx) {
@@ -498,8 +501,22 @@ module.exports = function() {
           // reset the grid
           scene.children
             .filter(function(el) { return el.isVoxel })
-            .map(function(mesh) { scene.remove(mesh) });
+            .map(function(mesh) { scene.remove(mesh); scene.remove(mesh.wireMesh) });
           // fill in voxels
+          var miny = 0;
+          for(var i = 0; i < voxels_out.shape[0]; i++) {
+            var disti = i - Math.floor(voxels_out.shape[0]/2);
+            for(var j = 0; j < voxels_out.shape[1]; j++) {
+              var distj = j - Math.floor(voxels_out.shape[1]/2);
+              for(var k = 0; k < voxels_out.shape[2]; k++) {
+                var distk = k - Math.floor(voxels_out.shape[2]/2);
+                if (voxels_out.get(i,j,k) == 1) {
+                  var posy = distj * 50 + 25;
+                  if (posy < miny) miny = posy;
+                }
+              }
+            }
+          } 
           for(var i = 0; i < voxels_out.shape[0]; i++) {
             var disti = i - Math.floor(voxels_out.shape[0]/2);
             for(var j = 0; j < voxels_out.shape[1]; j++) {
@@ -508,7 +525,7 @@ module.exports = function() {
                 var distk = k - Math.floor(voxels_out.shape[2]/2);
                 if (voxels_out.get(i,j,k) == 1) {
                   var posx = disti * 50 + 25; 
-                  var posy = distj * 50 + 25;
+                  var posy = distj * 50 + 25 - miny;
                   var posz = distk * 50 + 25;
                   addVoxel(posx, posy, posz);
                 }
