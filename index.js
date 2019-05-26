@@ -310,6 +310,17 @@ module.exports = function() {
   }
   
   function addVoxel(x, y, z, c) {
+	  
+    if (c == -1)
+    {
+	$.ajax({
+        type: "GET",
+        url: "http://localhost:3002/api/setBlock?position=["+voxel.position.x+","+voxel.position.y+","+voxel.position.z+"]&block=0", 
+     })
+	return;
+    }
+		    
+	  
     var cubeMaterial = new CubeMaterial( { vertexColors: THREE.VertexColors, transparent: true } )
     var col = colors[c] || colors[0]
     cubeMaterial.color.setRGB( col[0], col[1], col[2] )
@@ -869,6 +880,7 @@ module.exports = function() {
         if ( intersect.object != plane ) {
           scene.remove( intersect.object.wireMesh )
           scene.remove( intersect.object )
+	  addVoxel(brush.position.x, brush.position.y, brush.position.z, -1)
         }
       } else {
         // console.log(brush.position.x + " " + brush.position.y + " " + brush.position.z);
