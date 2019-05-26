@@ -343,7 +343,7 @@ module.exports = function() {
 	  
      $.ajax({
         type: "GET",
-        url: "http://localhost:3002/api/setBlock?position=["+voxel.position.x+","+voxel.position.y+","+voxel.position.z+"]&block="+(c+1), 
+        url: "http://localhost:3002/api/setBlock?position=["+((voxel.position.x-25)/50)+","+(((voxel.position.y-25))/50+1)+","+(((voxel.position.z-25))/50)+"]&block="+(c+1), 
      })  
 	  
   }
