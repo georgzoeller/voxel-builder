@@ -10,7 +10,7 @@
     "orthogami": "^1.0.1",
     "raf": "0.0.1",
     "three": "0.55.0",
-    "voxel-2d-print": "^1.0.0",
+    "voxel-2d-print": "georgzoeller/voxel-2d-print",
     "voxel-critter": "^1.0.0",
     "voxel-share": "0.3.0"
   },
