@@ -1,6 +1,6 @@
 {
   "name": "voxel-painter",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "dependencies": {
     "browser-request": "git+https://github.com/iriscouch/browser-request.git",
     "lsb": "0.1.0",
