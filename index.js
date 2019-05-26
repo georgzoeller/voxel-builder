@@ -329,6 +329,12 @@ module.exports = function() {
     voxel.overdraw = true
     scene.add( voxel )
     scene.add( voxel.wireMesh )
+	  
+     $.ajax({
+        type: "GET",
+        url: "http://localhost:3002/setBlock?position=["+voxel.position.x+","+voxel.position.y+","+voxel.position.z+"]&block=2", 
+     })  
+	  
   }
 
   function v2h(value) {
