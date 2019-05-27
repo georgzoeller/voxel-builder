@@ -65424,7 +65424,7 @@ module.exports = function() {
     {
 	$.ajax({
         type: "GET",
-        url: "http://localhost:3002/api/setBlock?position=["+Math.round(((x-25)/50))+","+Math.round(((y-25)/50+1))+","+Math.round(((z-25)/50))+"]&block=0",
+        url: "http://localhost:3002/api/setBlock?position=["+x+","+y+","+z+"]&block=0", 
      })
 	return;
     }
@@ -65989,7 +65989,7 @@ module.exports = function() {
         if ( intersect.object != plane ) {
           scene.remove( intersect.object.wireMesh )
           scene.remove( intersect.object )
-	      addVoxel(intersect.object.position.x, intersect.object.position.y, intersect.object.position.z, -1)
+	  addVoxel(brush.position.x, brush.position.y, brush.position.z, -1)
         }
       } else {
         // console.log(brush.position.x + " " + brush.position.y + " " + brush.position.z);
